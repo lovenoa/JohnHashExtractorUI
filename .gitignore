@@ -1,0 +1,9 @@
+**/bin/
+**/obj/
+.vs/
+dist/
+release/
+john/
+john-1.9.0-jumbo-1-win64/
+*.user
+*.suo
