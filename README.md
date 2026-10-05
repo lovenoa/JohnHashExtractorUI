@@ -1,3 +1,5 @@
+##This project was completed by AI
+
 # John Hash Extractor
 
 Windows GUI front end for John the Ripper Jumbo's existing `*2john` conversion tools. The application launches converters only; it does not crack passwords or convert Hashcat output back into John format.
