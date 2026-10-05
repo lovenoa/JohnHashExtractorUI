@@ -35,6 +35,7 @@ public static class OutputFormatter
         "$7z$",
         "$pkzip$",
         "$pkzip2$",
+        "$zip2$",
         "$rar5$",
         "$RAR3$",
         "$keepass$",
@@ -129,7 +130,7 @@ public static class OutputFormatter
     private static string TrimKnownTerminator(string hash)
     {
         // zip2john appends archive/file metadata after the Hashcat terminator.
-        var terminators = new[] { "*$/pkzip2$", "*$/pkzip$" };
+        var terminators = new[] { "*$/pkzip2$", "*$/pkzip$", "*$/zip2$" };
         foreach (var terminator in terminators)
         {
             var index = hash.IndexOf(terminator, StringComparison.OrdinalIgnoreCase);

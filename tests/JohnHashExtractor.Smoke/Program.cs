@@ -18,6 +18,7 @@ if (hashcatOutput != SevenZipExample)
 
 const string PkzipV1Example = "$pkzip$1*1*2*0*0*0*0*0*0*0*0*0*0*0*0*$/pkzip$";
 const string PkzipV2Example = "$pkzip2$1*1*2*0*0*0*0*0*0*0*0*0*0*0*0*0*$/pkzip2$";
+const string Zip2Example = "$zip2$*0*1*0*0675369741458183*5dc5*0**36b85538918416712640*$/zip2$";
 var pkzipV1Output = OutputFormatter.Format(
     "archive.zip/file.txt:" + PkzipV1Example + ":file.txt:archive.zip::archive.zip",
     OutputFileFormat.Hashcat,
@@ -26,7 +27,11 @@ var pkzipV2Output = OutputFormatter.Format(
     "archive.zip:" + PkzipV2Example + "::file.txt:archive.zip:archive.zip",
     OutputFileFormat.Hashcat,
     "John").Trim();
-if (pkzipV1Output != PkzipV1Example || pkzipV2Output != PkzipV2Example)
+var zip2Output = OutputFormatter.Format(
+    "archive.zip/file.txt:" + Zip2Example + ":file.txt:archive.zip:archive.zip",
+    OutputFileFormat.Hashcat,
+    "John").Trim();
+if (pkzipV1Output != PkzipV1Example || pkzipV2Output != PkzipV2Example || zip2Output != Zip2Example)
 {
     throw new InvalidOperationException("ZIP Hashcat output conversion failed");
 }
