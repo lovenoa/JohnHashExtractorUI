@@ -114,16 +114,32 @@ public static class OutputFormatter
     {
         if (StartsWithKnownPrefix(line))
         {
-            return line;
+            return TrimKnownTerminator(line);
         }
 
         var markerIndex = FindKnownPrefix(line);
         if (markerIndex > 0 && line[markerIndex - 1] == ':')
         {
-            return line[markerIndex..];
+            return TrimKnownTerminator(line[markerIndex..]);
         }
 
         return null;
+    }
+
+    private static string TrimKnownTerminator(string hash)
+    {
+        // zip2john appends archive/file metadata after the Hashcat terminator.
+        var terminators = new[] { "*$/pkzip2$", "*$/pkzip$" };
+        foreach (var terminator in terminators)
+        {
+            var index = hash.IndexOf(terminator, StringComparison.OrdinalIgnoreCase);
+            if (index >= 0)
+            {
+                return hash[..(index + terminator.Length)];
+            }
+        }
+
+        return hash;
     }
 
     private static bool StartsWithKnownPrefix(string line)

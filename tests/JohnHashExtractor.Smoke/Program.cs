@@ -16,6 +16,21 @@ if (hashcatOutput != SevenZipExample)
     throw new InvalidOperationException("7z Hashcat output conversion failed");
 }
 
+const string PkzipV1Example = "$pkzip$1*1*2*0*0*0*0*0*0*0*0*0*0*0*0*$/pkzip$";
+const string PkzipV2Example = "$pkzip2$1*1*2*0*0*0*0*0*0*0*0*0*0*0*0*0*$/pkzip2$";
+var pkzipV1Output = OutputFormatter.Format(
+    "archive.zip/file.txt:" + PkzipV1Example + ":file.txt:archive.zip::archive.zip",
+    OutputFileFormat.Hashcat,
+    "John").Trim();
+var pkzipV2Output = OutputFormatter.Format(
+    "archive.zip:" + PkzipV2Example + "::file.txt:archive.zip:archive.zip",
+    OutputFileFormat.Hashcat,
+    "John").Trim();
+if (pkzipV1Output != PkzipV1Example || pkzipV2Output != PkzipV2Example)
+{
+    throw new InvalidOperationException("ZIP Hashcat output conversion failed");
+}
+
 var hashcatPath = OutputNaming.GetOutputPath(@"C:\input\ratios.7z", @"C:\output", OutputFileFormat.Hashcat);
 if (!string.Equals(hashcatPath, @"C:\output\ratios.7z.hashcat.hash", StringComparison.OrdinalIgnoreCase))
 {
